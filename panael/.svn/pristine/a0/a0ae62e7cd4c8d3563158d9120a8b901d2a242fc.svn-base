@@ -1,0 +1,33 @@
+package com.example.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+
+import com.example.entry.Admin;
+
+import com.example.entry.Product;
+import com.example.entry.Student;
+import com.example.entry.User;
+
+@Mapper
+public interface AdminDao {
+	public Admin loginCheck(String id);
+
+	public int insertTech(Product product);
+	public List<Product> findTechList();
+	public Product getEditTechInfo(int productid);
+
+	//插入用户
+	public int insertUser(User user);
+	//查询所有用户
+	public List<User> searchUserList();
+	//查询单个用户信息
+	public User searchUserSelf(int user_id);
+	
+
+}
+
+
+
+

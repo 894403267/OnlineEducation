@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="Content-Type" content="multipart/form-data; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <title>课程新规登陆</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"/>
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+	<!-- Bootstrap-table-fixed-columns -->
+  <link rel="stylesheet" href="/plugins/bootstrap-table/dist/extensions/fixed-column/bootstrap-table-fixed-columns.css"/>
+	<!-- Bootstrap-table -->
+  <link rel="stylesheet" href="/plugins/bootstrap-table/dist/bootstrap-table.css"/>
+	<!-- Font Awesome -->
+  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css"/>
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css"/>
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/dist/css/AdminLTE.min.css"/>
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="/dist/css/skins/_all-skins.min.css"/>
+	<!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/plugins/iCheck/all.css"/>
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css"/>
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="/bower_components/bootstrap-daterangepicker/daterangepicker.css"/>
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	<style>
+		.container {
+			padding-right: 15px;
+			padding-left: 15px;
+			margin-right: auto;
+			margin-left: auto;
+		}
+    
+		label{
+			float:left;
+			padding-top:5px
+		}
+		.select-left{
+			width: 36%;
+			float:right
+		}
+		.select-right{
+			width: 72%;
+			float:right
+		}
+		.input-left-dialog{
+			width: 100%;
+			float:right
+		}
+		.input-left{
+			width: 72%;
+			float:right
+		}
+		.input-left-50{
+			width: 36%;
+			float:right
+		}
+		.dateTable{
+			table-layout:fixed;
+		}
+		.fixed-table-footer > .dateTable{
+			table-layout:auto;
+		}
+  </style>
+	<style type="text/css">
+		.dropdown-menu{
+			background-color:#3c8dbc
+		}
+		.dropdown-submenu {
+				position: relative;
+		}
+		.dropdown-submenu > .dropdown-menu {
+				top: 0;
+				left: 100%;
+				margin-top: -6px;
+				margin-left: -1px;
+				-webkit-border-radius: 0 6px 6px 6px;
+				-moz-border-radius: 0 6px 6px;
+				border-radius: 0 6px 6px 6px;
+		}
+		.dropdown-submenu:hover > .dropdown-menu {
+				display: block;
+		}
+		.dropdown-submenu > a:after {
+				display: block;
+				content: " ";
+				float: right;
+				width: 0;
+				height: 0;
+				border-color: transparent;
+				border-style: solid;
+				border-width: 5px 0 5px 5px;
+				border-left-color: #ccc;
+				margin-top: 5px;
+				margin-right: -10px;
+		}
+		.dropdown-submenu:hover > a:after {
+				border-left-color: #fff;
+		}
+		.dropdown-submenu.pull-left {
+				float: none;
+		}
+		.dropdown-submenu.pull-left > .dropdown-menu {
+				left: -100%;
+				margin-left: 10px;
+				-webkit-border-radius: 6px 0 6px 6px;
+				-moz-border-radius: 6px 0 6px 6px;
+				border-radius: 6px 0 6px 6px;
+		}
+		.dropdown > a{
+			color:white;
+		}
+		.dropdown:hover > .dropdown-menu{
+			display: block;
+		}
+		.dropdown-menu>li>a {
+			color: white;
+		}
+		.nav>li>a:active{background:#3c8dbc}
+		.nav .open>a, .nav .open>a:focus, .nav .open>a:hover{
+			color:white;
+			background-color:#3c8dbc
+		}
+		.nav>li>a:hover, .nav>li>a:active, .nav>li>a:focus {
+					color: #444;
+					background: #3c8dbc;
+				}
+	</style>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+	<header class="main-header">
+    <!-- Logo -->
+    <a href="top.html" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini">PEL</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>PanaEL</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+        <span class="sr-only">Toggle navigation</span>
+      </a>
+	  <div>
+		  <h4 class="top-h4">课程列表</h4>
+		  <div style="float:right;line-height:1.4;font-size:medium;color:white" ></div>
+	  </div>
+    </nav>
+  </header>
+  <!-- Left side column. contains the logo and sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <ul class="sidebar-menu" data-widget="tree">
+        <li class="active">
+          <a href="index.html">
+            <i class="fa fa-dashboard"></i> <span>系统菜单</span>
+          </a>
+		  <li><a href="/userIndex.php"><i class="fa fa-circle-o"></i> 用户列表</a></li>
+		  <li><a href="/techList.php"><i class="fa fa-circle-o"></i> 课程列表</a></li>
+		  <li><a href="/test_list.html"><i class="fa fa-circle-o"></i> 学习统计</a></li>
+	    </li>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  
+	<div class="content-wrapper">
+		<section class="content">
+			<div class="row">	
+			    	
+		    	<div class="col-lg-12">
+		    		<!-- hidden data -->
+		    		<input class="form-control" name="product_id" id="product_id" type="hidden"/>
+		    		<!-- small box -->
+		            <div class="box-body" style="width:50%;float:left;min-width:500px">
+		            	<div style="width:100%;float:left">
+		            		<label>课程名称：</label>
+		            		<input class="form-control" name="product_name" id="product_name"/>
+		            		<br/>
+		          		</div>
+		          		<div style="width:100%;float:left">
+		            		<label>课程介绍：</label>
+		            		<textarea class="form-control" name="product_desc" id="product_desc" rows="3" cols="20"></textarea>
+		            	    <br/>           	   
+		            	</div>	    
+		            	<div style="width:100%;float:left">
+		            	    <label>课程封面：</label>
+		            	    <img id="product_img" alt="img load failed" style="max-width:300px;max-height:150px"/>
+		            	    <br/><br/>
+		            	</div>
+		            </div>	
+		            <div class="box-body" style="width:100%;float:left;min-width:500px">	        	
+		            	<div class="col-lg-8" style="float:left">
+		            	    <label>选择新的课程封面:&nbsp;&nbsp;&nbsp;</label>
+		            	        <form id="course_form" name="course_form" method="post" enctype="multipart/form-data">
+		            		        <input type="file" id="image_file" name="image_file" accept="image/*"/>
+		            		    </form>
+		            	</div>
+		            	<div id="course_delete_div" class="col-lg-2" style="float:right">		        	   
+		        		    <button id="course_save_button" style="min-width:100px;float:right;margin-right:5px;" class="btn btn-block btn-danger" onclick="delete_course()">课程信息删除</button>
+		        	    </div>
+		            	<div id="course_save_div" class="col-lg-2" style="float:right">		        	   
+		        		    <button id="course_save_button" style="min-width:100px;float:right;margin-right:5px;" class="btn btn-block btn-primary" onclick="edit_course()">课程信息保存</button>
+		        	    </div>		        	    
+		            </div>
+		    	</div>
+		    	
+		    	<div id="old_chapter_block" class="col-lg-12">
+		    	
+		    	</div>
+		    	<div style="width:10%;float:left;margin-top:10px" class="col-lg-6">
+		            <button type="button" id="new_chapter" class="btn btn-block btn-primary" onclick="create_chapter()">新建章节</button>
+		        </div>
+		    	<div id="new_chapter_block" class="col-lg-12">		    	
+		    	</div>
+			</div>
+		</section>
+	</div>
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="/bower_components/jquery/dist/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.7 -->
+<script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- daterangepicker -->
+<script src="/bower_components/moment/min/moment.min.js"></script>
+<script src="/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- datepicker -->
+<script src="/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- Bootstrap table -->
+<script src="/plugins/bootstrap-table/dist/bootstrap-table.js"></script>
+<!-- Bootstrap table local -->
+<script src="/plugins/bootstrap-table/dist/bootstrap-table-locale-all.min.js"></script>
+<!-- Bootstrap table fixed column-->
+<script src="/plugins/bootstrap-table/dist/extensions/fixed-column/bootstrap-table-fixed-columns.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="/plugins/iCheck/icheck.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/dist/js/adminlte.min.js"></script>
+<!-- jquery freeze table -->
+<script src="/dist/js/freezeTable.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="/dist/js/pages/dashboard.js"></script>
+<script type="text/javascript">
+var chapter_block_id = 0;
+
+$(function(){
+		
+	var url = window.location.href;
+	var index = url.lastIndexOf("\/");  
+	var course_id = url.substring(index + 1, url.length);
+	document.getElementById("product_id").value = course_id;
+	
+	$.ajax({
+		method: 'post',
+		data: {product_id: course_id},
+		url: "/searchCourseByID",
+		success: function (data) {
+			var product_name = document.getElementById("product_name");
+			product_name.value = data.product_name;
+			var product_desc = document.getElementById("product_desc");
+			product_desc.value = data.product_desc;
+			var product_desc = document.getElementById("product_img");
+			product_img.src = "/course_img/"+data.image_name;			
+		}
+	})
+	
+	old_chapter_block(course_id);
+		
+})
+
+function old_chapter_block(course_id){
+    var duplicated_chapter_id = -1;
+	$.ajax({
+		method: 'post',
+		data: {course_id: course_id},
+	    url: "/course_detail/"+course_id,
+		success: function (data) {
+			data.forEach(function(e,i){
+				if(e.chapter_id != 0){
+					if(duplicated_chapter_id != e.chapter_id){					
+						duplicated_chapter_id = e.chapter_id;
+						chapter_block(e.chapter_id, e.chapter_order, e.chapter_name, e.product_id, e.chapter_id, "old_chapter_block");					
+					}
+				}			
+			});
+		}
+	});
+}
+
+function chapter_block(chapter_block_id = null, chapter_order = null, chapter_name = null, product_id = null, chapter_id = null, old_or_new = null){
+	var new_chapter_div = document.createElement("div");
+	new_chapter_div.id = "new_chapter_div"+chapter_block_id;
+   	new_chapter_div.className = "col-lg-12";
+   	new_chapter_div.style = "border: solid 1px #ccc;margin-top:10px";
+	
+   	var br=document.createElement("div");
+	br.innerHTML="<br/>";
+   	
+   	var chapter_order_div = document.createElement("div");
+   	chapter_order_div.className = "col-lg-3";
+   	chapter_order_div.style = "float:left;margin-top:10px";
+	var chapter_order_label = document.createElement("label");
+	chapter_order_label.innerHTML = "章节数:";
+	var chapter_order_input = document.createElement("input");
+	chapter_order_input.className = "control";
+	chapter_order_input.style = "width:50px";
+	chapter_order_input.id = "chapter_order"+chapter_block_id;
+	chapter_order_input.name = "chapter_order"+chapter_block_id;
+	chapter_order_input.value = chapter_order;
+	chapter_order_div.appendChild(chapter_order_label);
+	chapter_order_div.appendChild(chapter_order_input);
+	new_chapter_div.appendChild(chapter_order_div);
+	
+   	var chapter_name_div = document.createElement("div");
+   	chapter_name_div.className = "col-lg-5";
+   	chapter_name_div.style = "margin-top:10px";
+	var chapter_name_label = document.createElement("label");
+	chapter_name_label.innerHTML = "章节名称:";
+	var chapter_name_input = document.createElement("input");
+	chapter_name_input.className = "control";
+	chapter_name_input.id = "chapter_name"+chapter_block_id;
+	chapter_name_input.name = "chapter_name"+chapter_block_id;
+	chapter_name_input.value = chapter_name;
+	chapter_name_div.appendChild(chapter_name_label);
+	chapter_name_div.appendChild(chapter_name_input);
+	new_chapter_div.appendChild(chapter_name_div);
+	
+	var null_div = document.createElement("div");
+	null_div.className = "col-lg-2";
+	new_chapter_div.appendChild(null_div);
+	
+	var chapter_problem_div = document.createElement("div");
+	chapter_problem_div.id = product_id+"_"+chapter_id;
+	chapter_problem_div.className = "col-lg-2";
+	chapter_problem_div.style = "float:left;min-width:100px;margin-top:10px";
+	var chapter_problem_button = document.createElement("button");
+	chapter_problem_button.className = "btn btn-block btn-primary";
+	chapter_problem_button.onclick = "";
+	chapter_problem_button.innerHTML = "添加习题";
+	chapter_problem_div.appendChild(chapter_problem_button);
+	new_chapter_div.appendChild(chapter_problem_div);	        	   		
+	
+	if(old_or_new == "old_chapter_block"){
+	var chapter_old_video_div = document.createElement("div");
+	chapter_old_video_div.className = "col-lg-3";
+	chapter_old_video_div.style = "margin-top:10px";
+	var chapter_old_video_label = document.createElement("label");
+	chapter_old_video_label.innerHTML = "章节视频播放:&nbsp;&nbsp;&nbsp;";
+	var chapter_old_video_play_button = document.createElement("button");
+	chapter_old_video_play_button.id = "chapter_old_video_play_button"+chapter_block_id;
+	chapter_old_video_play_button.className = "btn btn-block btn-primary";
+	chapter_old_video_play_button.style = "width:40%;margin-bottom:10px";
+	chapter_old_video_play_button.onclick = function(){play_video(this);};
+	chapter_old_video_play_button.innerHTML = "播放视频";
+	chapter_old_video_div.appendChild(chapter_old_video_label);
+	chapter_old_video_div.appendChild(chapter_old_video_play_button);
+	new_chapter_div.appendChild(chapter_old_video_div);
+	}
+	else if(old_or_new == "new_chapter_block"){
+		var chapter_old_video_div = document.createElement("div");
+		chapter_old_video_div.className = "col-lg-3";
+		new_chapter_div.appendChild(chapter_old_video_div);
+	}
+	var chapter_new_video_div = document.createElement("div");
+	chapter_new_video_div.className = "col-lg-5";
+	chapter_new_video_div.style = "margin-top:10px";
+	var chapter_new_video_label = document.createElement("label");
+	chapter_new_video_label.innerHTML = "选择新的视频:&nbsp;&nbsp;&nbsp;";
+	var chapter_new_video_form = document.createElement("form");
+	chapter_new_video_form.id = "video_form"+chapter_block_id;
+	chapter_new_video_form.method = "post";
+	chapter_new_video_form.enctype = "multipart/form-data";
+	var chapter_new_video_input = document.createElement("input");
+	chapter_new_video_input.type = "file";
+	chapter_new_video_input.id = "video_file"+chapter_block_id;
+	chapter_new_video_input.name = "video_file"+chapter_block_id;
+	chapter_new_video_input.accept = "video/*";
+	chapter_new_video_form.appendChild(chapter_new_video_input);
+	chapter_new_video_div.appendChild(chapter_new_video_label);
+	chapter_new_video_div.appendChild(chapter_new_video_form);
+	new_chapter_div.appendChild(chapter_new_video_div);
+	
+	var chapter_save_div = document.createElement("div");
+	chapter_save_div.className = "col-lg-2";
+	chapter_save_div.style = "float:left;min-width:100px;margin-top:10px;margin-bottom:5px";
+	var chapter_edit_button = document.createElement("button");
+	chapter_edit_button.id = "chapter_edit_button"+chapter_block_id;
+	chapter_edit_button.className = "btn btn-block btn-primary";	
+	if(old_or_new == "old_chapter_block"){	
+		chapter_edit_button.onclick= function(){edit_chapter(this,"old");};
+		chapter_edit_button.innerHTML = "保存修改";
+	}
+	else if(old_or_new == "new_chapter_block"){
+		chapter_edit_button.onclick= function(){edit_chapter(this,"new");};
+		chapter_edit_button.innerHTML = "创建章节";
+	}
+	chapter_save_div.appendChild(chapter_edit_button);
+	new_chapter_div.appendChild(chapter_save_div);
+	
+	var chapter_delete_div = document.createElement("div");
+	chapter_delete_div.className = "col-lg-2";
+	chapter_delete_div.style = "float:left;min-width:100px;margin-top:10px;margin-bottom:5px";
+	var chapter_delete_button = document.createElement("button");
+	chapter_delete_button.id = "chapter_delete_button"+chapter_block_id;
+	chapter_delete_button.className = "btn btn-block btn-danger";
+	chapter_delete_button.onclick = function(){delete_chapter(this);};
+	chapter_delete_button.innerHTML = "删除章节";
+	chapter_delete_div.appendChild(chapter_delete_button);
+	new_chapter_div.appendChild(chapter_delete_div);
+	
+	var chapter_block = document.getElementById(old_or_new);
+	chapter_block.appendChild(new_chapter_div);
+	
+}
+
+function edit_course (){
+	
+	var course_data = new FormData();
+	var product_id = document.getElementById("product_id").value;
+	var product_name = document.getElementById("product_name").value;
+	var product_desc = document.getElementById("product_desc").value;   
+	if($("#image_file").get(0).files[0]){
+	    course_data.append("image_file",$("#image_file")[0].files[0]);
+	}
+	
+	course_data.append("product_id", product_id);
+	course_data.append("product_name", product_name);
+	course_data.append("product_desc", product_desc);
+	
+	$.ajax({
+		type: 'post',
+		data: course_data,
+	    url: "/edit_course",
+        processData: false,
+        contentType: false,
+		success: function (data) {		
+			alert(data);
+			window.location.reload();
+		}
+	});	 
+
+}
+
+function edit_chapter(element,old_or_new){
+	
+	var button_id = element.id;
+	var chapter_id = button_id.replace(/[^0-9]/ig,"");
+	var chapter_data = new FormData();
+	var chapter_name = document.getElementById("chapter_name"+chapter_id).value;
+	var chapter_order = document.getElementById("chapter_order"+chapter_id).value;
+	var url = window.location.href;
+	var index = url.lastIndexOf("\/");  
+	var product_id = url.substring(index + 1, url.length);
+	if($("#video_file"+chapter_id).get(0).files[0]){
+		chapter_data.append("video_file",$("#video_file"+chapter_id)[0].files[0]);
+	}
+
+	chapter_data.append("chapter_id", chapter_id);
+	chapter_data.append("chapter_name", chapter_name);
+	chapter_data.append("chapter_order", chapter_order);
+	chapter_data.append("product_id", product_id);
+	
+	$.ajax({
+		type: 'post',
+		data: chapter_data,
+	    url: "/edit_chapter",
+        processData: false,
+        contentType: false,
+		success: function (data) {		
+			alert(data);
+			document.getElementById("old_chapter_block").innerHTML = '';
+			old_chapter_block(product_id);
+			if(old_or_new == "new"){
+				document.getElementById("new_chapter_div"+chapter_id).remove();
+			}		
+		}
+	});	
+	
+}
+
+function delete_chapter(element){
+	var button_id = element.id;
+	var chapter_id = button_id.replace(/[^0-9]/ig,"");
+	$.ajax({
+		type: 'post',
+		data: {chapter_id: chapter_id},
+	    url: "/delete_chapter",
+		success: function (data) {		
+			alert(data);
+			window.location.reload();
+		}
+	});	
+}
+
+function delete_course(){
+	var url = window.location.href;
+	var index = url.lastIndexOf("\/");  
+	var product_id = url.substring(index + 1, url.length);
+	$.ajax({
+		type: 'post',
+		data: {product_id: product_id},
+	    url: "/delete_course",
+		success: function (data) {		
+			alert(data);
+			window.location.href = "/techList.php";
+		}
+	});	
+}
+
+function create_chapter(){			
+	$.ajax({
+		type: 'post',
+	    url: "/create_chapter",
+		success: function (data) {		
+			chapter_block(data, null, null, null, null, 'new_chapter_block');
+		}
+	});			
+}
+
+function play_video(element){
+	var button_id = element.id;
+	var chapter_id = button_id.replace(/[^0-9]/ig,"");
+	var url = window.location.href;
+	var index = url.lastIndexOf("\/");  
+	var course_id = url.substring(index + 1, url.length);
+	$.ajax({
+		type: 'post',
+		data:  {chapter_id: chapter_id},
+	    url: "/get_video_id",
+		success: function (data) {	
+			window.location.href = "/course/"+course_id+"/"+data;
+		}
+	});	
+}
+</script>
+</body>
+<script>
+</script>
+</html>

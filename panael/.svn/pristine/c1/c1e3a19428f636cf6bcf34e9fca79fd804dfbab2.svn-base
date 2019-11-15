@@ -1,0 +1,169 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>panel_在线考试</title>
+<link href="/main.css" rel="stylesheet" type="text/css" />
+<link href="/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="/test.css" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+	<div class="main">
+		<!--nr start-->
+		<div class="test_main">
+			<div class="nr_left">
+				<div class="test">
+					<form action="" method="post">
+						<div class="test_title">
+							<font><input type="button" name="test_jiaojuan" value="交卷"/></font>
+						</div>
+
+						<div class="test_content">
+							<div class="test_content_title">
+								<h2>选择题</h2>
+								<p>
+									<span>共</span><i id="total_questions" class="content_lit"></i><span>题，</span><span>合计</span><i
+										id="total_marks" class="content_fs"></i><span>分</span>
+								</p>
+							</div>
+						</div>
+						<div class="test_content_nr">
+							<ul id="question_ul">
+
+
+							</ul>
+						</div>
+
+					</form>
+				</div>
+
+			</div>
+			<div class="nr_right">
+				<div class="nr_rt_main">
+					<div class="rt_nr1">
+						<div class="rt_nr1_title">
+							<h1>答题卡</h1>
+						</div>
+
+						<div class="rt_content">
+							<div class="rt_content_tt">
+								<h2>选择题</h2>
+								<p>
+									<span>共</span><i id="total_questions1" class="content_lit">60</i><span>题</span>
+								</p>
+							</div>
+							<div class="rt_content_nr answerSheet">
+								<ul id="question_list">
+
+
+
+								</ul>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--nr end-->
+		<div class="foot"></div>
+	</div>
+
+	<script type="text/javascript" src="/dist/js/jquery-1.7.1.min.js"></script>
+
+	<script>
+	$(function (){
+		
+        var url = window.location.href;
+	    var index1 = url.lastIndexOf("\/");
+	    var index2 = url.lastIndexOf("\/",index1-1);
+	    var product_id = url.substring(index2 + 1, index1);
+	    var chapter_id = url.substring(index1 + 1, url.length);
+	    
+	    
+	    $.ajax({
+	   	    method: 'post',
+		    data: {product_id: product_id, chapter_id: chapter_id},
+		    url: "/searchProblemByID",	
+		    success: function (data) {
+                data.forEach(function(e,i){
+                	var problem_id;
+			        problem_id = e.problem_id;
+				    document.getElementById("total_questions").innerHTML = e.total_question;
+				    document.getElementById("total_questions1").innerHTML = e.total_question;
+				    document.getElementById("total_marks").innerHTML = e.total_mark;
+				
+			        var newi = i+1;
+		            var questionli = document.createElement("li"); 
+				    questionli.id = "question" + e.problem_id;
+		            var questiondiv = document.createElement("div");
+				    questiondiv.className = "test_content_nr_tt";
+				    var marki = document.createElement("i");
+				    marki.innerHTML = newi;
+				    var markspan = document.createElement("span");
+				    markspan.innerHTML = "(" + e.point + "分)";
+				    var questionfont = document.createElement("font");
+				    questionfont.innerHTML = e.problem_name;
+				    questiondiv.appendChild(marki);
+				    questiondiv.appendChild(markspan);
+				    questiondiv.appendChild(questionfont);
+				    questionli.appendChild(questiondiv);
+				    var optiondiv = document.createElement("div");
+				    optiondiv.className = "test_content_nr_main";
+				    var optionul = document.createElement("ul");
+				    optionul.id = "option_ul" + e.problem_id;
+				    optiondiv.appendChild(optionul);
+				    questionli.appendChild(optiondiv);
+				    var tempul = document.getElementById("question_ul");
+				    tempul.appendChild(questionli);
+				
+				    var questionlist = document.getElementById("question_list");
+				    var templist = document.createElement("li");
+                    var tempa = document.createElement("a");
+                    tempa.href = "#question" + e.problem_id;
+                    tempa.innerHTML = newi;
+                    templist.appendChild(tempa);
+                    questionlist.appendChild(templist);
+                    
+                    $.ajax({
+            		    method: 'post',
+            		    data: {problem_id: problem_id},
+            		    url: "/searchAnswerByID",	
+            		    success: function (data) {
+                            data.forEach(function(e,i){  
+            				    var newi = i+1;
+            			        var optionul = document.getElementById("option_ul"+e.problem_id);
+            				    var optionlist = document.createElement("li");
+            				    optionlist.className = "option";
+            				    var optioninput = document.createElement("input");
+            				    optioninput.type = "radio";
+            				    optioninput.className = "radioOrCheck";
+            				    optioninput.name = "question" + e.problem_id;
+            				    optioninput.id = "question" + e.problem_id + "option" + e.answer_id;
+            				    var optionlabel = document.createElement("label");
+            				    optionlabel.for = "question" + e.problem_id + "option" + e.answer_id;
+            				    var optionp = document.createElement("p");
+            				    optionp.className = "ue";
+            				    optionp.style = "display: inline;";
+            				    optionp.innerHTML = e.answer_name;
+            				    optionlabel.appendChild(optionp);
+            				    optionlist.appendChild(optioninput);
+            				    optionlist.appendChild(optionlabel);
+            				    optionul.appendChild(optionlist);
+            			    })
+            		    }
+            	    });
+			    })
+		    }		
+	    });
+	
+	    
+    }) 	
+    </script>
+</body>
+</html>

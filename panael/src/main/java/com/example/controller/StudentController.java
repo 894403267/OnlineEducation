@@ -1,0 +1,140 @@
+package com.example.controller;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.List;
+
+import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.*;
+
+
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.entry.Admin;
+import com.example.entry.Student;
+import com.example.entry.Product;
+import com.example.entry.Video;
+import com.example.entry.Problem;
+import com.example.entry.Answer;
+import com.example.entry.CourseDetail;
+import com.example.service.StudentService;
+
+@Controller
+public class StudentController {
+	@Resource
+	private StudentService studentService;
+	
+	@RequestMapping(value="showTable",method=RequestMethod.POST)
+	public Map<String, Object> getTable(@RequestParam(value="limit") Integer limit,@RequestParam(value="offset") Integer offset) {
+		return studentService.PageShow(limit, offset);
+	}
+
+	@RequestMapping(value = "insertStudent", method = RequestMethod.POST)
+	public int insertStudent(@RequestBody Student student) {
+
+		return studentService.insertStudent(student);
+	}
+
+	@RequestMapping(value = "deleteStudent", method = RequestMethod.POST)
+	public int deleteStudent(@RequestParam(value = "id") String id) {
+		return studentService.deleteStudent(id);
+	}
+
+	@RequestMapping(value = "updateStudent", method = RequestMethod.POST)
+	public int updateStudent(@RequestBody HashMap<String, Object> map) {
+		return studentService.updateStudent(map);
+	}
+
+	@RequestMapping(value = "searchById", method = RequestMethod.POST)
+	public Student searchById(@RequestParam(value = "id") String id) {
+		return studentService.searchById(id);
+	}
+
+	@RequestMapping("/course.php")
+	public String StudentCourse() {
+		
+		return "student/course";
+	}
+	
+	@RequestMapping("/course/{product_id}")
+	public String CourseDetail(){
+		
+		return "student/course_detail";
+	}
+	
+	@RequestMapping("/problem_set/{product_id}/{chapter_id}")
+	public String ProblemSetLink(){
+		
+		return "student/problem_set";
+	}
+	
+	@RequestMapping("/course/{product_id}/{video_id}")
+	public String VideoPlayer(){
+		
+		return "student/video_player";
+	}
+	
+	@RequestMapping("/course_list.php")
+	public String CourseList() {
+		
+		return "student/course_list";
+	}
+	
+	@RequestMapping("/course_history.php")
+	public String CourseHistory() {
+		
+		return "student/course_history";
+	}
+	
+	@RequestMapping(value="/allCourse")
+	@ResponseBody
+	public List<Product> allCourse() throws Exception {	 
+		return studentService.allCourse();
+	}
+	
+	@RequestMapping("/course_detail/{product_id}")
+	@ResponseBody
+	public List<CourseDetail> GetCourseDetail(@PathVariable("product_id") int id){		
+		return studentService.GetCourseDetail(id);
+	}
+	
+	@RequestMapping("/searchProblemByID")
+	@ResponseBody
+	public List<Problem> searchProblemByID(Integer product_id, Integer chapter_id){
+		
+		return studentService.searchProblemByID(product_id, chapter_id);
+	}
+	
+	@RequestMapping("/searchVideoByID")
+	@ResponseBody
+	public Video searchVideoByID(Integer video_id) throws Exception {	 
+		return studentService.searchVideoByID(video_id);
+	}
+	
+	@RequestMapping("/searchAnswerByID")
+	@ResponseBody
+	public List<Answer> searchAnswerByID(Integer problem_id) throws Exception {	 
+		return studentService.searchAnswerByID(problem_id);
+	}
+	
+	@RequestMapping("/searchCourseByID")
+	@ResponseBody
+	public Product searchCourseByID(Integer product_id) throws Exception {	 
+		return studentService.searchCourseByID(product_id);
+	}
+	
+	@RequestMapping("/searchCourse")
+	@ResponseBody
+	public List<Product> searchCourse(String product_name) throws Exception {	 
+		return studentService.searchCourse(product_name);
+	}
+}

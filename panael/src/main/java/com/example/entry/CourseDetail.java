@@ -1,0 +1,96 @@
+package com.example.entry;
+
+public class CourseDetail extends BaseNode {
+
+	private int product_id;
+	
+	private String product_name;
+	
+	private String product_desc;
+	
+    private int chapter_id;
+	
+	private Integer video_id;
+	
+	private Integer problem_id;
+
+	private String file_name;
+	
+	private Integer chapter_order;
+	
+	private String chapter_name;
+	
+	public int getProduct_id() {
+		return product_id;
+	}
+
+	public void setProduct_id(int product_id) {
+		this.product_id = product_id;
+	}
+
+	public String getProduct_name() {
+		return product_name;
+	}
+
+	public void setProduct_name(String product_name) {
+		this.product_name = product_name;
+	}
+
+	public String getProduct_desc() {
+		return product_desc;
+	}
+
+	public void setProduct_desc(String product_desc) {
+		this.product_desc = product_desc;
+	}
+	
+	public int getChapter_id() {
+		return chapter_id;
+	}
+
+	public void setChapter_id(int chapter_id) {
+		this.chapter_id = chapter_id;
+	}
+
+	public Integer getVideo_id() {
+		return video_id;
+	}
+
+	public void setVideo_id(Integer video_id) {
+		this.video_id = video_id;
+	}
+	
+	public Integer getProblem_id() {
+		return problem_id;
+	}
+
+	public void setProblem_id(Integer problem_id) {
+		this.problem_id = problem_id;
+	}
+	
+	public String getFile_name() {
+		return file_name;
+	}
+
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+	
+	
+	public String getchapter_name() {
+		return chapter_name;
+	}
+
+	public void setchapter_name(String chapter_name) {
+		this.chapter_name = chapter_name;
+	}
+	
+	public Integer getChapter_order() {
+		return chapter_order;
+	}
+
+	public void setChapter_order(Integer chapter_order) {
+		this.chapter_order = chapter_order;
+	}
+	
+}

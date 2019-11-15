@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<link rel="stylesheet" type="text/css" href="css.css" />
+<title>课程列表</title>
+</head>
+<body>
+<div style="width:1000px;margin:0 auto;">
+<div id="cart">
+<div class="content"></div>
+</div>  
+<div style="flaot:right;position:relative;"></div>
+<div id="search" style="margin-top:5px">
+<div class="button-search" onclick="searchCourse()"></div>
+<input type="text" id="filter_name" name="filter_name"/>
+</div>
+</div>
+<div class="header">
+<div style="font-size:300%;font-weight:800">Panel</div></div>
+<div id="menu">
+</div>
+<div id="wrapper">
+<div class="slider-wrapper theme-orman">
+<div class="ribbon"></div>
+<div id="slider" class="nivoSlider" style="border: 1px solid #444;box-shadow: 0 0 5px 0 #080808;">
+<a href="default.htm"><img src="/course_img/test.jpg" alt="" title="This is an example of a caption" /></a>
+<a href="default.htm"><img src="/course_img/test1.jpg" alt="" title="This is an example of a caption" /></a>
+</div>
+
+<div class="controlNav_box"></div>
+</div>
+</div>
+<script type="text/javascript" src="dist/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="dist/js/jquery.nivo.slider.pack.js"></script>
+<script type="text/javascript">
+    $(window).load(function() {
+        $('#slider').nivoSlider();
+    });
+</script>
+<div class="container">
+<div class="text_box_left">课程总览</div>
+<div id = "course_menu" class="box-product">
+
+</div>
+</div>
+
+<script>
+$(function (){
+   	$.ajax({
+		method:'post',		
+		url: "/allCourse",
+		success: function (data) {
+	 	    data.forEach(function(e,i){
+	 	    	
+		        var newdiv1 = document.createElement("div");
+				newdiv1.className = "showhim";
+				newdiv1.id = e.product_id;
+			    var newdiv2 = document.createElement("div");
+				newdiv2.className = "image";
+			    var image_link = document.createElement("a");
+				image_link.href = "#";
+				var course_img = document.createElement("img");
+				course_img.src = "/course_img/"+e.image_name;
+				course_img.style = "width:196px;height:224px";
+				course_img.alt = "加载图片失败";
+				image_link.appendChild(course_img);
+				newdiv2.appendChild(image_link);
+				var name_div = document.createElement("div");
+				name_div.className = "name";
+				var name_link = document.createElement("a");
+				name_link.className = "course-name";	
+				name_link.href = "/course/"+e.product_id;
+				name_link.title = e.product_name;
+				name_link.innerHTML = e.product_name;
+				name_div.appendChild(name_link);
+				newdiv2.appendChild(name_div);
+				var newdiv3 = document.createElement("div");
+				newdiv3.className = "priced";
+				var newul = document.createElement("ul");
+				var newli = document.createElement("li");
+				newli.innerHTML = "浏览历史";
+				newul.appendChild(newli);
+				//newdiv3.appendChild(newul);
+				newdiv2.appendChild(newdiv3);
+				newdiv1.appendChild(newdiv2);
+				var course_menu = document.getElementById("course_menu");
+				course_menu.appendChild(newdiv1);		
+				
+			 });
+		}
+			
+		});
+   
+})
+
+function searchCourse(){
+	course_menu.innerHTML = "";
+	var search_input = $("#filter_name").val();
+	$.ajax({
+		method:'post',
+		data: "product_name="+search_input,
+		url: "/searchCourse",
+		success: function (data) {
+	 	    data.forEach(function(e,i){
+			
+	 	    	var newdiv1 = document.createElement("div");
+				newdiv1.className = "showhim";
+				newdiv1.id = e.product_id;
+			    var newdiv2 = document.createElement("div");
+				newdiv2.className = "image";
+			    var image_link = document.createElement("a");
+				image_link.href = "#";
+				var course_img = document.createElement("img");
+				course_img.src = "/course_img/"+e.image_name;
+				course_img.style = "width:196px;height:224px";
+				course_img.alt = "加载图片失败";
+				image_link.appendChild(course_img);
+				newdiv2.appendChild(image_link);
+				var name_div = document.createElement("div");
+				name_div.className = "name";
+				var name_link = document.createElement("a");
+				name_link.className = "course-name";	
+				name_link.href = "/course/"+e.product_id;;
+				name_link.innerHTML = e.product_name;
+				name_div.appendChild(name_link);
+				newdiv2.appendChild(name_div);
+				var newdiv3 = document.createElement("div");
+				newdiv3.className = "priced";
+				var newul = document.createElement("ul");
+				var newli = document.createElement("li");
+				newli.innerHTML = "浏览历史";
+				newul.appendChild(newli);
+				newdiv3.appendChild(newul);
+				newdiv2.appendChild(newdiv3);
+				newdiv1.appendChild(newdiv2);
+				var course_menu = document.getElementById("course_menu");
+				course_menu.appendChild(newdiv1);		
+				
+			 });
+		}
+			
+		})
+}
+</script>
+
+</body>
+</html>
+

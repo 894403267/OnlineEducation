@@ -1,0 +1,32 @@
+package com.example.dao;
+
+import java.util.HashMap;
+import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import com.example.entry.Student;
+import com.example.entry.Product;
+import com.example.entry.Video;
+import com.example.entry.Problem;
+import com.example.entry.Answer;
+import com.example.entry.CourseDetail;
+
+@Mapper
+public interface StudentDao {
+	public Student searchById(String id);
+	public List<Student> allStudent();
+	public List<Product> allCourse();
+	public List<Product> searchCourse(String product_name);
+	public List<CourseDetail> GetCourseDetail(int course_id);
+	public List<Product> CourseHistory();
+	public Product searchCourseByID(Integer product_id);
+	public List<Problem> searchProblemByID(@Param("product_id") Integer product_id, @Param("chapter_id") Integer chapter_id);
+	public List<Answer> searchAnswerByID(Integer problem_id);
+	public Video searchVideoByID(Integer video_id);
+	public int insertStudent(Student student);
+	public int deleteStudent(String id);
+	public int updateStudent(HashMap<String,Object> map);
+	  
+}

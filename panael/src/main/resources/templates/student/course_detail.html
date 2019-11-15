@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8"/>
+<title>课程详细</title>
+<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+<script type="text/javascript" src="/dist/js/jquery-1.7.1.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/css.css" />
+<style type="text/css">
+
+.linktree {
+	margin-top:0px;
+	margin-bottom:10px;
+	margin-left:3px;
+}
+
+.linktree a {
+	color:#666;
+	text-decoration:none;
+	font-size:11px;
+}
+
+#menu {
+	border-radius:5px;
+}
+</style>
+
+</head>
+<body>
+
+
+<div style="width:1000px;margin:0 auto;">
+    <div id="cart">
+    <div class="content"></div>
+  </div>  	
+</div>
+
+<div class="header">
+<div style="font-size:300%;font-weight:800">Panel</div></div>
+
+
+<div style="width:1000px;margin: 0 auto;margin-top:10px;">
+
+<br/>
+<br/>
+<br/>
+<h1 id="course_heading" style="margin-top:-10px;font-size:300%;padding:5px;margin-left:10px"></h1>
+</div>
+<div id="container_bg">
+<div id="content">
+<div class="block-white"> 
+<div class="block-content">
+<div class="product-info">                          	
+<div class="left">                		                			
+<div  id="course_img" class="image">
+
+</div>                		                        
+</div>			    			
+<div class="right">
+<div id="tabs" class="tabs">
+<label>Description</label>
+</div>
+<div id="tab-information" class="tab-content">
+<div id="course_desc" class="description">
+                     
+</div>                           
+<div class="price">
+<span class="price-new">$119.50</span>
+
+</div>
+<br/>
+
+<div class="review">
+<div>
+<img src="/images/stars.png" alt="0 reviews" />&nbsp;&nbsp;
+<a onclick="$('a[href=\'#tab-review\']').trigger('click');#tab-review\']').trigger('click');">0 reviews</a>&nbsp;&nbsp;|&nbsp;&nbsp;
+<a onclick="$('a[href=\'#tab-review\']').trigger('click');#tab-review\']').trigger('click');">Write a review</a>
+</div>
+</div>
+</div>
+</div><!--right division  -->
+
+</div>
+</div>
+
+<br/><br/><br/><br/>
+
+<div>
+<h1 style="font-size:250%">Chapter Menu</h1>
+<h2 style="border-bottom: 2px solid black"></h2>
+<ul id="chapter_menu" class="col-xs-12">
+
+</ul>
+</div><!--chapter division  -->
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+
+</div>
+</div>
+</div>
+
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<script type="text/javascript" src="../dist/js/jquery-1.7.1.min.js"></script>
+<script>
+
+$(function (){
+
+	var url = window.location.href;
+	var index = url.lastIndexOf("\/");  
+	var course_id = url.substring(index + 1, url.length);
+	var multiple_problem;//multiple problems in one chapter cuases duplicate left join results on one chapter
+	var icompensater = 0;//to adjsut duplicate counter i
+	
+	$.ajax({
+		method: 'post',
+		data: {product_id: course_id},
+		url: "/searchCourseByID",
+		success: function (data) {
+                
+				var imgtag = document.createElement("img");
+				imgtag.src = "/course_img/"+data.image_name;
+				imgtag.style = "max-width:250px;max-height:320px"
+				imgtag.alt = "img load failed";
+				document.getElementById("course_img").appendChild(imgtag);				
+				document.getElementById("course_heading").innerHTML = data.product_name;
+				document.getElementById("course_desc").innerHTML = data.product_desc;
+				test =  data.product_name;
+				
+		}		
+	});
+
+	$.ajax({
+		method: 'post',
+		data: "course_id="+course_id,
+		url: "/course_detail/"+course_id,
+		success: function (data) {
+			data.forEach(function(e,i){
+				if(multiple_problem != e.chapter_id){
+					multiple_problem = e.chapter_id;
+					i = i-icompensater;
+					var newi = i+1;
+				    var newlist = document.createElement("li");
+				    var newp = document.createElement("p");
+				    newlist.className = "col-xs-12";
+				    newp.style = "font-size:150%;color:black;text-decoration:none;cursor:default;display:inline";    
+				    newp.innerHTML = "第"+e.chapter_order+"章"+"&nbsp;&nbsp;&nbsp;"+e.chapter_name;
+				    newlist.appendChild(newp);
+				
+			    	if(e.problem_id != null){
+			    		var problemlink = document.createElement("a");
+			        	problemlink.href = "/problem_set/"+e.product_id+"/"+e.chapter_id;
+			    		problemlink.innerHTML = "习题测试";
+			    		problemlink.style = "float: right;display:inline;font-size:150%";
+			        	newlist.appendChild(problemlink);
+			    	}
+				    else{
+				    	var noproblem = document.createElement("p")
+			        	noproblem.innerHTML = "暂无习题";
+				    	noproblem.style = "float:right;font-size:150%;color:black;text-decoration:none;cursor:default;display:inline";
+			        	newlist.appendChild(noproblem);
+				    };
+				    
+				    if(e.video_id != null){            
+			        	var videolink = document.createElement("a")
+			        	videolink.href = "/course/"+course_id+"/"+e.video_id;
+			        	videolink.innerHTML = "教学视频"+"&nbsp;&nbsp;&nbsp;";
+			        	videolink.style = "float:right;display:inline;font-size:150%";
+			        	newlist.appendChild(videolink);
+			        }
+				    else{
+				    	var novideo = document.createElement("p")
+			        	novideo.innerHTML = "暂无视频"+"&nbsp;&nbsp;&nbsp;";
+				    	novideo.style = "float:right;font-size:150%;color:black;text-decoration:none;cursor:default;display:inline";
+			        	newlist.appendChild(novideo);
+				    };
+				    
+				    document.getElementById("chapter_menu").appendChild(newlist);
+				    var br=document.createElement("div");
+				    br.innerHTML="<br/><br/>";
+				    document.getElementById("chapter_menu").appendChild(br); 
+			    }
+				else{
+					icompensater++;
+				};			
+			});			
+		}
+	});
+	
+})
+</script>
+</body>
+</html>

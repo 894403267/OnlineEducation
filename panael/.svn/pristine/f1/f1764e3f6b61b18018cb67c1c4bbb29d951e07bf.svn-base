@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dao.StudentDao">
+
+  <select id="searchById" parameterType="String" resultType="com.example.entry.Student">
+    select * from tbl_user where user_id = #{id}
+  </select>
+  
+  <select id="allStudent" resultType="com.example.entry.Student">
+  	select * from tbl_user
+  </select>
+  
+  <select id="allCourse" resultType="com.example.entry.Product">
+    select * from tbl_product
+  </select>
+  
+  <select id="CourseHistory" resultType="com.example.entry.ProductHistory">
+    select * from tbl_product_history
+  </select>
+  
+  <select id="searchCourse" parameterType="String" resultType="com.example.entry.Product">
+    select * from tbl_product where product_name like concat('%', #{product_name}, '%')
+  </select>
+  
+  <select id="searchCourseByID" parameterType="Integer" resultType="com.example.entry.Product">
+    select * from tbl_product where product_id = #{product_id}
+  </select>
+  
+  <select id="searchVideoByID" parameterType="Integer" resultType="com.example.entry.Video">
+    select * from tbl_video where video_id = #{video_id}
+  </select>
+  
+  <select id="searchAnswerByID" parameterType="Integer" resultType="com.example.entry.Answer">
+    select * from tbl_answer where problem_id = #{problem_id}
+  </select>
+  
+  <select id="searchProblemByID" parameterType="Integer" resultType="com.example.entry.Problem">
+    select *, (select count(problem_id) from tbl_problem ) as total_question, (select sum(point) from tbl_problem ) as total_mark from tbl_problem where product_id = #{product_id} and chapter_id = #{chapter_id}
+  </select>
+  
+  <select id="GetCourseDetail" parameterType="int" resultType="com.example.entry.CourseDetail">
+    select * from tbl_product left join tbl_chapter on tbl_chapter.product_id = tbl_product.product_id   
+                              left join tbl_problem on tbl_chapter.product_id = tbl_problem.product_id and tbl_chapter.chapter_id = tbl_problem.chapter_id where tbl_product.product_id = #{course_id}
+  </select>
+  
+  <insert id="insertStudent" parameterType="Student" >
+  	insert into tbl_user values(#{id},#{name},#{sex},#{age})
+  </insert>
+  
+  <delete id="deleteStudent" parameterType="String">
+    delete from tbl_user where id = #{id}
+  </delete>
+  
+  <update id="updateStudent" parameterType="HashMap">
+  	update tbl_user set id=#{id},name=#{name},sex=#{sex},age=#{age} where id=#{oldid}
+  </update>
+</mapper>

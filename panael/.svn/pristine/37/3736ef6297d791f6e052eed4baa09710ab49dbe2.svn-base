@@ -1,0 +1,35 @@
+package com.example.service;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+import org.springframework.stereotype.Service;
+import com.example.dao.AdminDao;
+import com.example.entry.Admin;
+import com.example.entry.Student;
+import com.example.entry.User;
+
+@Service
+public class AdminService {
+	@Resource
+	private AdminDao adminDao;
+	
+	public Admin checkLogin(String id) {
+		Admin admin = adminDao.loginCheck(id);
+		return admin;
+	}
+	//插入数据
+	public int insertUser(User user) {
+		return adminDao.insertUser(user);
+	}
+	
+	//查询数据
+	public List<User> searchUserList() {
+		return adminDao.searchUserList();
+	}
+	
+	//查询单个用户信息
+	public User searchUserSelf(int user_id) {
+		return adminDao.searchUserSelf(user_id);
+	}
+}

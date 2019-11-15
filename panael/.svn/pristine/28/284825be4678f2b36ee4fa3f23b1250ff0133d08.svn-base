@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <!-- 防止IE8,7进入怪异模式 -->
+<meta http-equiv="Content-Type" content="IE=Edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>课程播放</title>      
+<!-- js通用样式 -->
+<script type="text/javascript" src="/dist/js/jquery-1.7.1.min.js"></script>
+<!-- 滚动条主要样式 -->
+<script type="text/javascript" src="/dist/js/jquery.nicescroll.js"></script>
+<!-- 滚动条主要样式 -->
+<style type="text/css">
+/*格式化样式*/
+body {margin: 0;padding: 0;font-family:Microsoft YaHei!important;background-color: #F5F5F5;}
+ul,dl,dt,dd,h1,h2,h3,h4,h5,h6,form { padding:0; margin:0;}
+ul { list-style:none;}
+img { border:0px;}
+
+a{text-decoration: none;outline: none;color:#444;}
+a:visited{text-decoration: none;}
+a:hover{cursor: pointer;text-decoration: none; color:#3C97D6;}
+a:focus{-moz-outline-style: none;text-decoration: none;}
+img{border: 0;}
+.clear{clear: both;}
+/*格式化样式*/
+/*播放器样式*/
+
+.video_list_area{}
+	ul.video_list{margin: 7px 0px 0px 0;height: 107px; list-style:none;border-bottom: 10px solid #dcdcdc;}
+	ul.video_list li{float: left;font-size: 14px;font-weight: bold;line-height: 24px;}
+	ul.video_list li a{display:inline-block;padding: 14px 15px;margin-right:7px;width: 140px;height:72px;color: #fff;background-color: #7e2d2d;}
+	ul.video_list li.last a{margin-right:0;}
+	ul.video_list li a:hover,ul.video_list li a.on{color: #fff;background-color: #c12e2e;}
+	#ascrail2000-hr div{margin-left:0;}
+
+/*播放器样式*/
+</style>
+<!--- iframe切换停止播放js -->
+<script type="text/javascript">
+$(function() {
+	var iframe = $("div.video_player iframe");//播放页面
+	$('ul.video_list li a').click(function(){
+		iframe.attr("src",$(this).attr("name"));//更改iframe src
+		$('ul.video_list li a').removeClass('on');
+		$(this).addClass('on');//给点击的元素添加正在播放标识
+	});
+	
+});
+</script>
+<!-- iframe切换停止播放js -->
+</head>
+<body>
+
+<!-- 播放器 -->
+<div id="video_player" class="video_player">
+	
+</div>
+<div id="videolist" class="dec_10 clearborder">
+	 <div class="video_list_area">
+		<ul id="video_list" class="video_list">
+			
+	   </ul>
+	</div> 
+</div> 
+<!-- 播放器 -->
+
+<script>
+$(function(){
+	
+	var url = window.location.href;
+	var index1 = url.lastIndexOf("\/");
+	var index2 = url.lastIndexOf("\/",index1-1);
+	var course_id = url.substring(index2 + 1, index1);
+	var video_id = url.substring(index1 + 1, url.length);
+	console.log(course_id);
+	$.ajax({
+		method: 'post',
+		data: {course_id: course_id},
+		url: "/course_detail/"+course_id,
+		success: function (data) {
+			var datalength = 0;
+			for(var temp in data){
+			   	datalength++;
+			}
+			console.log(datalength);
+			data.forEach(function(e,i){
+				var newi = i+1;	
+				if(e.video_id != null){
+				    if(i != datalength - 1){
+					    var templist = document.createElement("li");
+					    var tempa = document.createElement("a");
+					    tempa.name = "http://localhost:8057/"+data.file_name;
+					    tempa.innerHTML = "第"+newi+"章 "+e.chapter_name;
+					    tempa.href = "/course/"+course_id+"/"+e.video_id;
+					    templist.appendChild(tempa);
+					    document.getElementById("video_list").appendChild(templist);
+				    }
+				    else{
+					    var templist = document.createElement("li");
+					    templist.ClassName = "last";
+					    var tempa = document.createElement("a");
+					    tempa.className = "last";
+					    tempa.name = "http://localhost:8057/"+data.file_name;
+					    tempa.innerHTML = "第"+newi+"章 "+e.chapter_name;
+					    tempa.href = "/course/"+course_id+"/"+e.video_id;
+					    templist.appendChild(tempa);
+					    document.getElementById("video_list").appendChild(templist);
+				    }
+				}
+				else{
+					datalength--;
+				}
+			});	
+			$("ul").css("width",$("ul.video_list li").width()*datalength);
+		}
+	});
+	
+
+	$(".video_list_area").niceScroll({ 
+		cursorcolor:" #c12e2e",  //#FF6666滚动条光标颜色
+		cursoropacitymax:1,      //改变不透明度，光标处于活动状态（scrollabar“可见”状态），范围从1到0
+		touchbehavior:false,     //使光标拖动滚动像在台式电脑触摸设备
+		autohidemode:false,      //是否隐藏滚动条
+		cursorwidth:"10px",      //像素光标的宽度
+		cursorborder:"0",        //游标边框css定义
+		cursorborderradius:"0px" //以像素为光标边界半径 
+	}); 
+	
+	$.ajax({
+		method: 'post',
+		data: {video_id: video_id},
+		url: "/searchVideoByID",
+		success: function(data){
+			var tempframe = document.createElement("iframe");
+			tempframe.src = "http://localhost:8057/"+data.file_name;
+			console.log(tempframe.src);
+			tempframe.width = "100%";
+			tempframe.height = "500px";
+			tempframe.frameborder = "0";
+			tempframe.scrolling = "auto";
+			document.getElementById("video_player").appendChild(tempframe);
+		}
+	});	
+})
+
+
+</script>
+
+
+
+</body>
+</html>
+
