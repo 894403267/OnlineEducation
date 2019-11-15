@@ -11,24 +11,24 @@ public class FirstPage {
 	
 	@RequestMapping("/")
 	public String login() {
-		return "admin/index";
+		return "admin/login";
 	}
 	
 	
 
 	
-	//@RequestMapping("/index.php")
-	//public String index(HttpServletRequest request) {
-		//Cookie[] cookies=request.getCookies();
-		//if (cookies!=null) {
-			//for (Cookie cookie : cookies) {
-			//	if (cookie.getName().equals("id")) {
-			//		return "admin/index";
-			//	}
-			//}	
-		//}		
-		//	return "admin/login";
+	@RequestMapping("/index.php")
+	public String index(HttpServletRequest request) {
+		Cookie[] cookies=request.getCookies();
+		if (cookies!=null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("id")) {
+					return "admin/index";
+				}
+			}	
+		}		
+			return "admin/login";
 	}
 	
 
-//}
+}
